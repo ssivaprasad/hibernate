@@ -1,6 +1,6 @@
 package com.ssp.apps.hibernate.dao;
 
-import javax.annotation.PostConstruct;
+import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 
 import org.hibernate.Session;
@@ -16,19 +16,21 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class TodoHibernateAPIRepository {
 
-	@Autowired
-	private EntityManagerFactory entityManagerFactory;
+    @Autowired
+    private EntityManagerFactory entityManagerFactory;
 
-	private Session session;
+    private Session session;
 
-	@PostConstruct
-	public void createHibernateSession() {
-		SessionFactory sessionFactory = entityManagerFactory.unwrap(SessionFactory.class);
-		session = sessionFactory.openSession();
-	}
+    public Todo findById(Integer id) {
+        Session session = getSession();
+        return session.find(Todo.class, id);
+    }
 
-	public Todo findById(Integer id) {
-		return session.find(Todo.class, id);
-	}
-
+    private Session getSession() {
+        if (session == null) {
+            EntityManager entityManager = entityManagerFactory.createEntityManager();
+            return entityManager.unwrap(Session.class);
+        }
+        return session;
+    }
 }

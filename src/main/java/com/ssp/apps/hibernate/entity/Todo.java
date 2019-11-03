@@ -25,4 +25,10 @@ public class Todo {
 
 	private String taskName;
 	private Date targetDate;
+
+	public Todo(String taskName, Date targetDate) {
+		this.taskName = taskName;
+		this.targetDate = targetDate;
+	}
+
 }

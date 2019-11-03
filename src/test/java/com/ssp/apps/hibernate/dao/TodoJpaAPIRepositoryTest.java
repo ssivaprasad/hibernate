@@ -1,5 +1,9 @@
 package com.ssp.apps.hibernate.dao;
 
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +22,15 @@ public class TodoJpaAPIRepositoryTest {
 
 	@Autowired
 	private TodoJpaAPIRepository repository;
+
+	@Autowired
+	private EntityManagerFactory entityManagerFactory;
+
+	@Before
+	public void createEntityManger() {
+		EntityManager entityManager = entityManagerFactory.createEntityManager();
+		repository.setEntityManager(entityManager);
+	}
 
 	@Test
 	public void findById() {
