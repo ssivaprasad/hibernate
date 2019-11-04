@@ -64,4 +64,17 @@ public class TodoJpaRepositoryTest {
 
 		transaction.commit();
 	}
+
+	@Test
+	public void merge() {
+		EntityManager entityManager = entityManagerFactory.createEntityManager();
+		EntityTransaction transaction = entityManager.getTransaction();
+		transaction.begin();
+
+		Todo todo = repository.findById(1);
+		todo.setTaskName("Lets learn Hibernate");
+
+		entityManager.merge(todo);
+		transaction.commit();
+	}
 }
