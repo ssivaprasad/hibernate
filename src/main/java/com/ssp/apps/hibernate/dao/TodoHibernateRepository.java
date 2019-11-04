@@ -3,45 +3,47 @@ package com.ssp.apps.hibernate.dao;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
-import javax.transaction.Transactional;
 
+import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.ssp.apps.hibernate.entity.Todo;
 
 import lombok.Setter;
+import lombok.extern.slf4j.Slf4j;
 
 @Repository
 @Setter
-public class TodoJpaAPIRepository {
+@Slf4j
+public class TodoHibernateRepository {
 
 	@Autowired
 	private EntityManagerFactory entityManagerFactory;
 
-	private EntityManager entityManager;
+	private Session session;
 
 	public Todo findById(Integer id) {
-		EntityManager entityManager = getEntityManager();
-		return entityManager.find(Todo.class, id);
+		Session session = getSession();
+		return session.load(Todo.class, id);
 	}
 
 	public Todo save(Todo todo) {
-		EntityManager entityManager = getEntityManager();
-		EntityTransaction transaction = entityManager.getTransaction();
+		Session session = getSession();
+		EntityTransaction transaction = session.getTransaction();
 		transaction.begin();
 
-		entityManager.persist(todo);
+		session.save(todo);
 
 		transaction.commit();
 		return todo;
 	}
 
-	private EntityManager getEntityManager() {
-		if (entityManager == null) {
-			return entityManagerFactory.createEntityManager();
+	private Session getSession() {
+		if (session == null) {
+			EntityManager entityManager = entityManagerFactory.createEntityManager();
+			return entityManager.unwrap(Session.class);
 		}
-		return entityManager;
+		return session;
 	}
-
 }
