@@ -3,6 +3,7 @@ package com.ssp.apps.hibernate.entity;
 import java.util.Date;
 
 import javax.persistence.Entity;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -10,6 +11,8 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+
+import com.ssp.apps.hibernate.constant.BookType;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -34,6 +37,9 @@ public class Book {
 
 	@Temporal(TemporalType.DATE)
 	private Date publishedDate;
+
+	@Enumerated
+	private BookType bookType;
 
 	public Book() {
 		this.publishedDate = new Date();
