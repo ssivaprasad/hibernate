@@ -1,5 +1,9 @@
 package com.ssp.apps.hibernate.entity;
 
+import javax.persistence.AttributeOverride;
+import javax.persistence.AttributeOverrides;
+import javax.persistence.Column;
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -13,7 +17,7 @@ import lombok.Setter;
 import lombok.ToString;
 
 @Entity
-@Table(name = "User")
+@Table(name = "user_dtl")
 @Setter
 @Getter
 @NoArgsConstructor
@@ -27,4 +31,13 @@ public class User {
 
 	private String name;
 
+	@AttributeOverrides({@AttributeOverride(name = "number", column = @Column(name = "office_landline")),
+			@AttributeOverride(name = "mail", column = @Column(name = "office_email"))})
+	@Embedded
+	private Contact officeContact;
+
+	@AttributeOverrides({@AttributeOverride(name = "number", column = @Column(name = "mobile_number")),
+			@AttributeOverride(name = "mail", column = @Column(name = "email"))})
+	@Embedded
+	private Contact personalContact;
 }
