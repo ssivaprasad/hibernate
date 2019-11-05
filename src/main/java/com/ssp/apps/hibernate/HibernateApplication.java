@@ -21,8 +21,8 @@ public class HibernateApplication {
 	@Bean
 	public CommandLineRunner commandLineRunner(@Autowired TodoRepository repository) {
 		return (args) -> {
-			repository.save(new Todo("Learn Hibernate", new Date()));
-			repository.save(new Todo("Learn Spring", new Date()));
+			// repository.save(new Todo("Learn Hibernate", new Date()));
+			// repository.save(new Todo("Learn Spring", new Date()));
 		};
 	}
 }
