@@ -1,5 +1,6 @@
 package com.ssp.apps.hibernate.dao;
 
+import java.util.Date;
 import java.util.Optional;
 
 import org.junit.Ignore;
@@ -19,44 +20,10 @@ import lombok.extern.slf4j.Slf4j;
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = HibernateApplication.class)
 @Slf4j
-public class BookRepositoryTest {
-
-	@Autowired
-	private BookRepository bookRepository;
+public class BookDetailRepositoryTest {
 
 	@Autowired
 	private BookDetailRepository bookDetailRepository;
-
-	@Test
-	@Ignore
-	public void findById() {
-		Optional<Book> bookOptional = bookRepository.findById(1);
-		if (bookOptional.isPresent()) {
-			log.info("== >> {}", bookOptional.get());
-		}
-	}
-
-	@Test
-	@Ignore
-	public void save_without_cascade() {
-		Book book = new Book();
-		book.setTitle("Spring 5 Recipes");
-		book.setAuthor(" Gary Mak");
-		book.setPublisher("Apress");
-		book.setBookType(BookType.PDF);
-
-		BookDetail bookDetail = new BookDetail();
-		bookDetail.setEditionNo(5);
-		bookDetail.setIsbn("871254");
-		bookDetail.setNoOfPages(640);
-		book.setBookDetail(bookDetail);
-
-		bookDetailRepository.save(bookDetail);
-		bookRepository.save(book);
-
-		Book book1 = bookRepository.findById(book.getId()).get();
-		log.info("=== >>> {}", book1);
-	}
 
 	@Test
 	public void save_with_cascade() {
@@ -70,12 +37,14 @@ public class BookRepositoryTest {
 		bookDetail.setEditionNo(5);
 		bookDetail.setIsbn("871254");
 		bookDetail.setNoOfPages(640);
+
+		bookDetail.setBook(book);
 		book.setBookDetail(bookDetail);
 
-		bookRepository.save(book);
+		bookDetailRepository.save(bookDetail);
 
-		Book book1 = bookRepository.findById(book.getId()).get();
-		log.info("=== >>> {}", book1);
+		BookDetail bookDetails = bookDetailRepository.findById(bookDetail.getId()).get();
+		log.info("=== >>> {}", bookDetails);
 	}
 
 }

@@ -2,10 +2,12 @@ package com.ssp.apps.hibernate.entity;
 
 import java.util.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -20,7 +22,7 @@ import lombok.ToString;
 @Table(name = "book_dtl")
 @Getter
 @Setter
-@ToString
+@ToString(exclude = {"book"})
 public class BookDetail {
 
 	@Id
@@ -35,7 +37,17 @@ public class BookDetail {
 	@Temporal(TemporalType.DATE)
 	private Date publishedDate;
 
+	@OneToOne(mappedBy = "bookDetail", cascade = CascadeType.PERSIST)
+	private Book book;
+	
 	public BookDetail() {
 		this.publishedDate = new Date();
 	}
+	
+	public void setBook(Book book) {
+		this.book = book;
+		book.setBookDetail(this);
+	}
+	
+	
 }
