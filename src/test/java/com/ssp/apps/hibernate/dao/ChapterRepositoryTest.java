@@ -10,19 +10,20 @@ import com.ssp.apps.hibernate.HibernateApplication;
 import com.ssp.apps.hibernate.constant.BookType;
 import com.ssp.apps.hibernate.entity.Book;
 import com.ssp.apps.hibernate.entity.BookDetail;
+import com.ssp.apps.hibernate.entity.Chapter;
 
 import lombok.extern.slf4j.Slf4j;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = HibernateApplication.class)
 @Slf4j
-public class BookDetailRepositoryTest {
+public class ChapterRepositoryTest {
 
 	@Autowired
-	private BookDetailRepository bookDetailRepository;
+	private ChapterRepository chapterRepository;
 
 	@Test
-	public void save_with_cascade() {
+	public void save() {
 		Book book = new Book();
 		book.setTitle("Spring 5 Recipes");
 		book.setAuthor(" Gary Mak");
@@ -33,14 +34,15 @@ public class BookDetailRepositoryTest {
 		bookDetail.setEditionNo(5);
 		bookDetail.setIsbn("871254");
 		bookDetail.setNoOfPages(640);
-
-		bookDetail.setBook(book);
 		book.setBookDetail(bookDetail);
-
-		bookDetailRepository.save(bookDetail);
-
-		BookDetail bookDetails = bookDetailRepository.findById(bookDetail.getId()).get();
-		log.info("=== >>> {}", bookDetails);
+		
+		Chapter chapter = new Chapter("Introduction", 1);
+		chapter.setBook(book);
+		
+		chapterRepository.save(chapter);
+		
+		Chapter chapter2 = chapterRepository.findById(chapter.getId()).get();
+		log.info("=== >>> {}", chapter2);
 	}
 
 }
