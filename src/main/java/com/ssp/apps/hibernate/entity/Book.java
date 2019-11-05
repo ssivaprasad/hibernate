@@ -35,7 +35,6 @@ public class Book {
 
 	private String title;
 	private String author;
-	private String publisher;
 
 	@OneToOne(cascade = CascadeType.PERSIST)
 	@JoinColumn(name = "book_dtl_id", unique = true)

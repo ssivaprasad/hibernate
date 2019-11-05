@@ -1,7 +1,5 @@
 package com.ssp.apps.hibernate;
 
-import java.util.Date;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -9,7 +7,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
 import com.ssp.apps.hibernate.dao.TodoRepository;
-import com.ssp.apps.hibernate.entity.Todo;
 
 @SpringBootApplication
 public class HibernateApplication {

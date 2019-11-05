@@ -34,7 +34,6 @@ public class Chapter {
 	private Book book;
 
 	public Chapter(String name, Integer chapterNo) {
-		super();
 		this.name = name;
 		this.chapterNo = chapterNo;
 	}

@@ -10,20 +10,22 @@ import com.ssp.apps.hibernate.HibernateApplication;
 import com.ssp.apps.hibernate.constant.BookType;
 import com.ssp.apps.hibernate.entity.Book;
 import com.ssp.apps.hibernate.entity.BookDetail;
-import com.ssp.apps.hibernate.entity.Chapter;
+import com.ssp.apps.hibernate.entity.Publisher;
 
 import lombok.extern.slf4j.Slf4j;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = HibernateApplication.class)
 @Slf4j
-public class ChapterRepositoryTest {
+public class PublisherRepositoryTest {
 
 	@Autowired
-	private ChapterRepository chapterRepository;
+	private PublicherRepository publicherRepository;
 
 	@Test
 	public void save() {
+		Publisher publisher = new Publisher("Apress");
+
 		Book book = new Book();
 		book.setTitle("Spring 5 Recipes");
 		book.setAuthor(" Gary Mak");
@@ -33,15 +35,12 @@ public class ChapterRepositoryTest {
 		bookDetail.setEditionNo(5);
 		bookDetail.setIsbn("871254");
 		bookDetail.setNoOfPages(640);
+
 		book.setBookDetail(bookDetail);
-		
-		Chapter chapter = new Chapter("Introduction", 1);
-		chapter.setBook(book);
-		
-		chapterRepository.save(chapter);
-		
-		Chapter chapter2 = chapterRepository.findById(chapter.getId()).get();
-		log.info("=== >>> {}", chapter2);
+
+		publisher.addBook(book);
+
+		publicherRepository.save(publisher);
 	}
 
 }

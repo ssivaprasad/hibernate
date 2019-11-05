@@ -26,7 +26,6 @@ public class BookDetailRepositoryTest {
 		Book book = new Book();
 		book.setTitle("Spring 5 Recipes");
 		book.setAuthor(" Gary Mak");
-		book.setPublisher("Apress");
 		book.setBookType(BookType.PDF);
 
 		BookDetail bookDetail = new BookDetail();
