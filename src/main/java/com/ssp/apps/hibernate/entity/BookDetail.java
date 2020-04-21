@@ -1,7 +1,6 @@
 package com.ssp.apps.hibernate.entity;
 
 import java.util.Date;
-
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -12,7 +11,6 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -24,29 +22,37 @@ import lombok.ToString;
 @ToString(exclude = {"book"})
 public class BookDetail {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "BOOK_DTL_ID_GENERATOR")
-	@SequenceGenerator(name = "BOOK_DTL_ID_GENERATOR", sequenceName = "book_dtl_seq", initialValue = 1, allocationSize = 1)
-	private Integer id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "BOOK_DTL_ID_GENERATOR")
+    @SequenceGenerator(name = "BOOK_DTL_ID_GENERATOR", sequenceName = "book_dtl_seq",
+            initialValue = 1, allocationSize = 1)
+    private Integer id;
 
-	private String isbn;
-	private Integer noOfPages;
-	private Integer editionNo;
+    private String isbn;
+    private Integer noOfPages;
+    private Integer editionNo;
 
-	@Temporal(TemporalType.DATE)
-	private Date publishedDate;
+    @Temporal(TemporalType.DATE)
+    private Date publishedDate;
 
-	@OneToOne(mappedBy = "bookDetail", cascade = CascadeType.PERSIST)
-	private Book book;
-	
-	public BookDetail() {
-		this.publishedDate = new Date();
-	}
-	
-	public void setBook(Book book) {
-		this.book = book;
-		book.setBookDetail(this);
-	}
-	
-	
+    @OneToOne(mappedBy = "bookDetail", cascade = CascadeType.PERSIST)
+    private Book book;
+
+    public BookDetail() {
+        this.publishedDate = new Date();
+    }
+
+    public void setBook(Book book) {
+        this.book = book;
+        book.setBookDetail(this);
+    }
+
+    public BookDetail(String isbn, Integer noOfPages, Integer editionNo) {
+        super();
+        this.isbn = isbn;
+        this.noOfPages = noOfPages;
+        this.editionNo = editionNo;
+    }
+
+
 }

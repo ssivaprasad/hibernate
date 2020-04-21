@@ -10,9 +10,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
-
 import com.ssp.apps.hibernate.constant.BookType;
-
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -28,19 +26,28 @@ import lombok.ToString;
 @NoArgsConstructor
 public class Book {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "BOOK_ID_GENERATOR")
-	@SequenceGenerator(name = "BOOK_ID_GENERATOR", sequenceName = "BOOK_SEQ", initialValue = 1, allocationSize = 1)
-	private Integer id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "BOOK_ID_GENERATOR")
+    @SequenceGenerator(name = "BOOK_ID_GENERATOR", sequenceName = "BOOK_SEQ", initialValue = 1,
+            allocationSize = 1)
+    private Integer id;
 
-	private String title;
-	private String author;
+    private String title;
+    private String author;
 
-	@OneToOne(cascade = CascadeType.PERSIST)
-	@JoinColumn(name = "book_dtl_id", unique = true)
-	private BookDetail bookDetail;
+    @OneToOne(cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "book_dtl_id", unique = true)
+    private BookDetail bookDetail;
 
-	@Enumerated
-	private BookType bookType;
+    @Enumerated
+    private BookType bookType;
+
+    public Book(String title, String author, BookType bookType) {
+        super();
+        this.title = title;
+        this.author = author;
+        this.bookType = bookType;
+    }
+
 
 }
